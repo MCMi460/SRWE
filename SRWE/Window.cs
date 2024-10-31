@@ -11,7 +11,7 @@ namespace SRWE
 	/// </summary>
 	class Window
 	{
-		private class ETWP_Param
+        private class ETWP_Param
 		{
 			public int m_nThreadID;
 			public Window m_parent;
@@ -345,6 +345,10 @@ namespace SRWE
 
 				return m_hierID + ". " + winName;
 			}
+			set
+			{
+                WinAPI.SetWindowText(m_hWnd, value);
+            }
 		}
 
 		public int Handle
@@ -451,7 +455,10 @@ namespace SRWE
 		[DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
 		public static extern bool SetWindowPos(int hWnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
-		[DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        public static extern int SetWindowText(int hWnd, string text);
+
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
 		public static extern bool IsIconic(int hWnd);
 
 		[DllImport("USER32.DLL", CharSet = CharSet.Unicode)]

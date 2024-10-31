@@ -34,7 +34,7 @@ namespace SRWE
 		private DataTable m_dtWS_EX;
 		private bool _windowSizeSpecificationManuallyChanged = false;
 
-		public MainForm()
+        public MainForm()
 		{
 			InitializeComponent();
 			this.MinimumSize = this.Size;
@@ -351,7 +351,7 @@ namespace SRWE
 
 		private void BTN_TASKBAR_MODE_Click(object sender, EventArgs e)
 		{
-			if (TV_WINDOW_TREE.SelectedNode == null) return;
+            if (TV_WINDOW_TREE.SelectedNode == null) return;
 
 			Window win = (Window)TV_WINDOW_TREE.SelectedNode.Tag;
 
@@ -365,7 +365,19 @@ namespace SRWE
 			}
 		}
 
-		private void DGV_WS_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void EDT_TEXT_TextChanged(object sender, EventArgs e)
+        {
+            if (TV_WINDOW_TREE.SelectedNode == null) return;
+
+			Window win = (Window)TV_WINDOW_TREE.SelectedNode.Tag;
+
+			if (win.Parent == null)
+			{
+				win.DisplayName = EDT_TEXT.Text;
+            }
+        }
+
+        private void DGV_WS_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0) return;
 
@@ -516,7 +528,7 @@ namespace SRWE
 
 		private static bool IsProcessRunning(Process process)
 		{
-			try { return !process.HasExited; }
+			try { return process != null ? !process.HasExited : false; }
 			catch { return false; }
 		}
 
